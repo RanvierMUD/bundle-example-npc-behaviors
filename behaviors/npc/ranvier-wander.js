@@ -40,34 +40,14 @@ module.exports = () => {
         }
 
         this._lastWanderTime = Date.now();
-        let possibleRooms = {};
-        for (const possibleExit of this.room.exits) {
-          possibleRooms[possibleExit.direction] = possibleExit.roomId;
+
+        const exits = this.room.getExits();
+        if (!exits.length) {
+          return;
         }
 
-        const coords = this.room.coordinates;
-        if (coords) {
-          // find exits from coordinates
-          const area = this.room.area;
-          const directions = {
-            north: [0, 1, 0],
-            south: [0, -1, 0],
-            east: [1, 0, 0],
-            west: [-1, 0, 0],
-            up: [0, 0, 1],
-            down: [0, 0, -1],
-          };
-
-          for (const [dir, diff] of Object.entries(directions)) {
-            const room = area.getRoomAtCoordinates(coords.x + diff[0], coords.y + diff[1], coords.z + diff[2]);
-            if (room) {
-              possibleRooms[dir] = room.entityReference;
-            }
-          }
-        }
-
-        const [direction, roomId] = RandomUtil.fromArray(Object.entries(possibleRooms));
-        const randomRoom = state.RoomManager.getRoom(roomId);
+        const roomExit = RandomUtil.fromArray(exits);
+        const randomRoom = state.RoomManager.getRoom(roomExit.roomId);
 
         const door = this.room.getDoor(randomRoom) || randomRoom.getDoor(this.room);
         if (randomRoom && door && (door.locked || door.closed)) {
