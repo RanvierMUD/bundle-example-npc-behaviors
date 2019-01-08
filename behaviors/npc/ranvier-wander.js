@@ -66,7 +66,7 @@ module.exports = () => {
         }
 
         Logger.verbose(`NPC [${this.uuid}] wandering from ${this.room.entityReference} to ${randomRoom.entityReference}.`);
-        Broadcast.sayAt(this.room, `${this.name} wanders ${direction}.`);
+        Broadcast.sayAt(this.room, `${this.name} wanders ${roomExit.direction}.`);
         this.moveTo(randomRoom);
       }
     }
