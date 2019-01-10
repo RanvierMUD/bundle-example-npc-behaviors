@@ -1,8 +1,9 @@
 {
+  "private": true,
   "name": "ranvier-npc-behaviors",
   "version": "1.0.0",
   "description": "",
   "dependencies": {
-    "apiai": "^4.0.3"
+    "rando-js": "^0.2.0"
   }
 }
