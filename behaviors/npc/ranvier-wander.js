@@ -46,7 +46,7 @@ module.exports = {
       const roomExit = Random.fromArray(exits);
       const randomRoom = state.RoomManager.getRoom(roomExit.roomId);
 
-      const door = this.room.getDoor(randomRoom) || randomRoom.getDoor(this.room);
+      const door = this.room.getDoor(randomRoom) || (randomRoom && randomRoom.getDoor(this.room));
       if (randomRoom && door && (door.locked || door.closed)) {
         // maybe a possible feature where it could be configured that they can open doors
         // or even if they have the key they can unlock the doors
